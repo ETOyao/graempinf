@@ -49,10 +49,10 @@ public List<CareerFair> listCareerFair(CareerFair cf) ;
  * <p>Description:发布招聘会信息<p>
  * @author wanglei 2017年3月24日
  */
-public void updateCareerFair(CareerFair cf);
+public void updateCareerFairApply(CareerFair cf);
 /**
  * <p>Description:取消发布<p>
  * @author wanglei 2017年3月24日
  */
-public void updateCareerFair(String uuid);
+public void updateCareerFairCancel(CareerFair cf);
 }

@@ -45,9 +45,15 @@ public class CareerFairService implements ICareerFairService {
 	public void delete(String id) {
 		//查询是否有预约如果有预约则不允许删除
 		List<CareerFairAppointment> temcap = capDao.loadByCfid(id);
-		if (null!=temcap && temcap.size()>0 ){
+		if (null!=temcap && temcap.size()>0){
 			throw new GraEmpInfException("不能删除招聘会信息，已经存在预约！");
-		}else{
+		}
+		//如果发布不能删
+		CareerFair cftem = careerFairDao.loadCareerFairByUUid(id);
+		Integer cfStatus = cftem.getFinshStatus();
+		if (cfStatus==1){
+			throw new GraEmpInfException("不能删除招聘会信息，已经发布！");
+	}else{
 			careerFairDao.deleteCareerFair(id);
 		}
 	}
@@ -91,23 +97,23 @@ public class CareerFairService implements ICareerFairService {
 		return careerFairDao.listCareerFair(cf);
 	}
 	@Override
-	public void updateCareerFair(CareerFair cf) {
+	public void updateCareerFairApply(CareerFair cf) {
 		//如果发布时间大于小于当前时间不让发布
-		if(cf.getCareerFairDate().after(DateUtils.getCurrentSqlDate())){
-			throw new GraEmpInfException("不能发布招聘会信息，该发布会已经举行过！");	
+		java.sql.Timestamp d = DateUtils.getCurrentTimestamp();
+		if(cf.getCareerFairDate().before(d)){
+			throw new GraEmpInfException("不能发布招聘会信息，该发布会举行时间已过！");	
 		}else{
 			careerFairDao.update(cf);
-			careerFairDao.updateCareerFairStatus(cf.getCareerFairUuid(), 1);
 		}
 	}
 	@Override
-	public void updateCareerFair(String uuid) {
-		List<CareerFairAppointment> temcap = capDao.loadByCfid(uuid);
+	public void updateCareerFairCancel(CareerFair cf) {
+		List<CareerFairAppointment> temcap = capDao.loadByCfid(cf.getCareerFairUuid());
 		if (null!=temcap && temcap.size()>0 ){
 			throw new GraEmpInfException("不能取消发布招聘会信息，已经存在预约！");
 		}
 		else{
-				careerFairDao.updateCareerFairStatus(uuid, 0);
+			careerFairDao.update(cf);
 			}
 	}
 

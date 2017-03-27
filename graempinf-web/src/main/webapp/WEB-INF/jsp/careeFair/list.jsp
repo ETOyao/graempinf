@@ -105,7 +105,7 @@
 					<a href="apply/${cf.careerFairUuid }" class="list_op">发布</a>
 					</c:if>
 					<c:if test="${cf.finshStatus eq 1}">
-					<a href="apply/${cf.careerFairUuid }" class="list_op">取消发布</a>
+					<a href="cancel/${cf.careerFairUuid }" class="list_op">取消发布</a>
 					</c:if>
 					
 				</td>

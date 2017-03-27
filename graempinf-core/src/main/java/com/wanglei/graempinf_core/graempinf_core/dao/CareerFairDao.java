@@ -88,7 +88,7 @@ public class CareerFairDao extends BaseDao<CareerFair> implements ICareerFairDao
 	}
 	@Override
 	public CareerFair loadCareerFairByUUid(String uuid) {
-		return super.load(uuid);
+		return (CareerFair)super.getSession().get(CareerFair.class, uuid);
 	}
 
 	@Override

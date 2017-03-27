@@ -111,8 +111,19 @@ public class CareerFairController {
 	public String apply(@PathVariable String uuid){
 		CareerFair cf = careerFairService.load(uuid);
 		cf.setApplayCareerFairDate(DateUtils.getCurrentTimestamp());
+		cf.setFinshStatus(1);
 		cf.setApplyPerson(userService.getCurentLoginUser().getUserNickName());
-		careerFairService.updateCareerFair(cf);
+		careerFairService.updateCareerFairApply(cf);
+		return "redirect:/admin/careeFair/careeFairs";
+	}
+	@AuthMethod(role="ROLE_TEACHTER")
+	@RequestMapping(value="/cancel/{uuid}",method=RequestMethod.GET)
+	public String cancel(@PathVariable String uuid){
+		CareerFair cf = careerFairService.load(uuid);
+		cf.setApplayCareerFairDate(null);
+		cf.setApplyPerson(null);
+		cf.setFinshStatus(0);
+		careerFairService.updateCareerFairCancel(cf);
 		return "redirect:/admin/careeFair/careeFairs";
 	}
 	/**
