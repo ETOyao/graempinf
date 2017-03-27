@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>${baseInfo.name}</title>
+</head>
+<!--easyui样式引入  -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/main.css"/>
+<!--easyui 脚本引入  -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+function exitSystem() {
+	//alert($("#contextPath").val()+"/admin/logout");
+	/* if(confirm("您确定退出吗？")){
+		  window.parent.location.href = $("#contextPath").val()+"/admin/logout";
+	} */
+	window.open(url, windowName, windowFeatures, optionalArg4);
+	  $.messager.confirm('操作确认！', "确认退出吗？", function(r){
+			if (r){
+				  window.location.href = $("#contextPath").val()+"/admin/logout";
+			}
+	});
+}
+</script>
+<frameset cols="1%,*,1%"  border="0" frameborder="0" frameSpacing="0" scrolling="false">
+	<frame src="<%=request.getContextPath() %>/resources/admin/background.html" frameSpacing="0">
+	<frameset rows="88,430"  frameborder="0" noresize frameSpacing="0">
+		<frame name="top"   src="<%=request.getContextPath() %>/jsp/admin/top.jsp" frameborder="0" frameSpacing="0"/>
+		<frameset cols="180,*" frameborder="0" frameSpacing="0">
+			<frame name="nav"   src="<%=request.getContextPath() %>/jsp/admin/nav.jsp" frameborder="0"/>
+			<frame name="content" src="<%=request.getContextPath() %>/resources/admin/01.html" frameborder="0"/>
+		</frameset>
+	</frameset>
+	<frame src="<%=request.getContextPath() %>/resources/admin/background.html" frameSpacing="0">
+</frameset>
+</html>

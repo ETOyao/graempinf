@@ -1,0 +1,16 @@
+项目所用到的技术
+	1、maven 的分模块管理
+	2、Spring +hibernate + Springmvc
+	3、页面采用freeMarker
+	4、js 采用jquery 
+	5、 树采用z-tree
+	6、文件上传，uploaify
+	7、ajax,dwr
+1、maven的分模块管理
+	-- basic hibernate
+ 	-- graempinf core --model，dao 
+ 	-- graempinf user -- 用户管理 user，role，group
+ 	-- graempinf system -- 系统管理
+ 	-- graempinf web ---web集成 
+ 	--graempinf-->parent
+ 	

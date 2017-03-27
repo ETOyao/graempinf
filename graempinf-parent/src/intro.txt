@@ -1,0 +1,40 @@
+------------------------------------------------------------------------------
+项目所用到的技术
+	1、maven 的分模块管理
+	2、Spring +hibernate + Springmvc
+	3、页面采用freeMarker
+	4、js 采用jquery 
+	5、 树采用z-tree
+	6、文件上传，uploaify
+	7、ajax,dwr
+----------------------------------------------------------------------------------
+1、maven的分模块管理
+	-- basic -hibernate 封装基本对数据库的操作
+ 	-- graempinf-core --model，dao  核心实体类和dao
+ 	-- graempinf-user -- 用户管理 user，role，group  service
+ 	-- graempinf-student -- 学生信息管理管理 （学生信息维护+学生信息管理） service
+ 	-- graempinf-employee -- 就业信息统计
+ 	-- graempinf-channel -- 菜单管理
+ 	-- graempinf-careerfair -- 招聘会信息
+ 	-- graempinf-web ---web集成 
+ 	--graempinf-org 组织机构
+ 	--graempinf-->parent 所有模块的父模块
+-------------------------------------------------------------------------------- 	
+2、角色权限模型
+	RBAC
+	Role Base Access control
+	--实体 
+	张三
+	Role 角色   
+	本系统角色
+	--系统管理员（admin-》all）  
+	--学生（student->基本信息维护+招聘会预约）  
+	--管理员（teacher--》毕业生信息管理+招聘会管理+个人信息管理+统计）
+	Group 组
+	--资源
+	文件
+	--操作
+	增删改查
+---------------------------------------------------
+3、m1 学生信息管理
+	
