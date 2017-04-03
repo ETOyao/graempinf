@@ -73,13 +73,19 @@ public class CareerFairDao extends BaseDao<CareerFair> implements ICareerFairDao
 				alias.put("careerFairUndertaker",StringUtils.gennerateLike(caf.getCareerFairUndertaker()));
 			} if(null!=caf.getCareerFairType()){
 				sbf.append(" and cf.careerFairType =:careerFairType");
-				sbf.append(" and cf.careerFairType =:careerFairType");
 				alias.put("careerFairType",caf.getCareerFairType());
 			} 
-			if(null!=caf.getFinshStatus() && caf.getFinshStatus()!=-1){
+			if(null!=caf.getCareerFairDate()){
+				sbf.append(" and cf.careerFairDate =:careerFairDate");
+				alias.put("careerFairDate",caf.getCareerFairDate());
+			} 
+			if(null!=caf.getFinshStatus() && caf.getFinshStatus()!=-1&&caf.getFinshStatus()!=9){
 				sbf.append(" and cf.finshStatus =:finshStatus");
-				sbf.append(" and cf.finshStatus =:finshStatus");
-				alias.put("careerFairType",caf.getFinshStatus());
+				alias.put("finshStatus",caf.getFinshStatus());
+			} 
+			if(null!=caf.getFinshStatus() &&caf.getFinshStatus()==9){
+				sbf.append(" and cf.finshStatus>:finshStatus");
+				alias.put("finshStatus",0);
 			} 
 		}
 		reobj.put("sql", sbf.toString());

@@ -73,7 +73,7 @@ public class CareerFair {
 	 */
 	private String careerFairUndertaker;
 	/**
-	 * 招聘会信息状态 0：未发布 1：已发布 2：已举行
+	 * 招聘会信息状态 0：未发布 1：已发布  2:已举行
 	 */
 	private Integer finshStatus;
 	private String attr1;

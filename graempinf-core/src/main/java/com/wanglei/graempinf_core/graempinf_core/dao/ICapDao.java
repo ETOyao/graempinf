@@ -1,9 +1,10 @@
-package CareerFairAppointment;
+package com.wanglei.graempinf_core.graempinf_core.dao;
 
 import java.util.List;
 
 import com.wanglei.basic.hibernate.dao.IBaseDao;
 import com.wanglei.basic.hibernate.model.Pager;
+import com.wanglei.graempinf_core.graempinf_core.model.CapCafPro;
 import com.wanglei.graempinf_core.graempinf_core.model.CareerFairAppointment;
 
 /**
@@ -33,7 +34,7 @@ public interface ICapDao extends IBaseDao<CareerFairAppointment> {
 	 * @param uuid
 	 * @author wanglei 2017年3月21日
 	 */
-	public void loadByuuid(String uuid);
+	public CareerFairAppointment loadByuuid(String uuid);
 	/**
 	 * <p>Description:分页查找预约信息<p>
 	 * @param caf
@@ -61,4 +62,13 @@ public interface ICapDao extends IBaseDao<CareerFairAppointment> {
 	  * @author wanglei 2017年3月24日
 	  */
 	 public List<CareerFairAppointment> loadByCfid(String cfid);
+	 public List<CareerFairAppointment> loadByCfidAndCapid(String cfid ,String Capid);	 
+	 /**
+	 * <p>Description:查找招聘会预约关系<p>
+	 * @param cacap
+	 * @return
+	 * @author wanglei 2017年4月3日
+	 */
+	public  Pager<CapCafPro> findCapCapro(CapCafPro cacap);
+	public  List<CapCafPro> listCapCapro(CapCafPro cacap);
 }

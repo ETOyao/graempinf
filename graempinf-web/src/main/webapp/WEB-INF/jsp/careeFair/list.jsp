@@ -24,7 +24,7 @@
 	}
 	function exPort(event){
 	 var formData = $( "#queryFrom" ).serialize();  
-	 var url = "exportsst";
+	 var url = "exportcfinfo";
 		url=url+"?"+formData; 
 		console.info(url);
 		$(event).attr("href",url);
@@ -58,7 +58,6 @@
 				<option value="-1">全部</option>
 				<option value="0">未发布</option>
 				<option value="1">已发布</option>
-				<option value="2">已举行</option>
 			</select>
 	</td>
 	<td colspan="7">
@@ -84,6 +83,7 @@
 		</tr>
 		</thead>
 		<tbody>
+		<c:if test="${cfs.datas.size()>=1 }">
 		<c:forEach items="${cfs.datas}" var="cf">
 			<tr>
 				<td>${cfs.datas.indexOf(cf)+1}&nbsp;</td>
@@ -97,6 +97,7 @@
 				<td>
 				<c:if test="${cf.finshStatus eq 0}">未发布</c:if>
 				<c:if test="${cf.finshStatus eq 1}">已发布</c:if>
+				<c:if test="${cf.finshStatus eq 3}">已存在预约</c:if>
 				</td>
 				<td>
 					<a href="update/${cf.careerFairUuid }" class="list_op">更新</a>
@@ -111,13 +112,17 @@
 				</td>
 			</tr>
 		</c:forEach>
+		</c:if>
+		<c:if test="${cfs.datas.size()<1}">
+		<td colspan="12" align="center"><c:out value="暂无招聘会信息！"></c:out></td>
+		</c:if>
 		</tbody>
 		<tfoot>
 		<tr>
 			<td colspan="11" style="text-align:right;margin-right:10px;">
 			<jsp:include page="/jsp/pager.jsp">
 				<jsp:param value="${cfs.total }" name="totalRecord"/>
-				<jsp:param value="ssts" name="url"/>
+				<jsp:param value="careeFairs" name="url"/>
 				<jsp:param value="${cfs.size}" name="size"/>
 			</jsp:include>
 			</td>

@@ -33,10 +33,11 @@ function showWarn(mesg){
 	  $.messager.alert('警告',mesg,'warning');
   
 }
-function showQuestion(){
+function showQuestion(mesg){
 	  $.messager.alert('问题',mesg,'question');
   
 }
+
 $(function(){
 	  var is_msg = '${oper_success}';
 	  if(null!=is_msg && is_msg!=""){

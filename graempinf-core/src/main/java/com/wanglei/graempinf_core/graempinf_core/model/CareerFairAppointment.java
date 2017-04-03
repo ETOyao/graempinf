@@ -64,7 +64,7 @@ public class CareerFairAppointment {
 	 */
 	private String careeFairName;
 	/**
-	 * 预约状态 0：取消预约 1：已预约 2：已参加 3：放弃参加  4 ：逾期   null ：未预约
+	 * 预约状态 0：取消预约 1：已预约 2：已参加 3:逾期   null ：未预约
 	 */
 	private Integer finshStatus;
 	/**

@@ -487,10 +487,12 @@ public class BaseDao<T>  implements IBaseDao<T> {
 	 * @return
 	 * @author WangLei 2017年1月8日
 	 */
+	@SuppressWarnings("rawtypes")
 	public  <N extends Object> Pager<N> findBysqlWithParamsAndalias(String sql, Object[] args, Map<String, Object> alias, Class<?> clazz, boolean hasEntity) {
 		String cq = getCountHql(sql,false);
 		sql = inintSort(sql);
 		SQLQuery sq = getSession().createSQLQuery(sql);
+		System.out.println(cq);
 		SQLQuery cquery = getSession().createSQLQuery(cq);
 		setParameter( sq, args);
 		setAilasParameter(sq, alias);
@@ -500,13 +502,15 @@ public class BaseDao<T>  implements IBaseDao<T> {
 		setPagers(sq, pages);
 		if(hasEntity){
 			sq.addEntity(getClz());
+			long total = ((BigInteger)cquery.uniqueResult()).longValue();
+			pages.setTotal(total);
 		}else{//如果不是hibernate转换的实体类要转化成实体类
-			cquery.setResultTransformer(Transformers.aliasToBean(getClz()));  
+			long total = ((BigInteger)cquery.uniqueResult()).longValue();
+			cquery.setResultTransformer(Transformers.aliasToBean(clazz));  
+			pages.setTotal(total);
+			
 		}
-		 List<N> datas = sq.list();
-		long total = ((BigInteger)cquery.uniqueResult()).longValue();
-		pages.setDatas(datas);
-		pages.setTotal(total);
+		pages.setDatas( sq.list());
 		return pages;
 	}
 	/**

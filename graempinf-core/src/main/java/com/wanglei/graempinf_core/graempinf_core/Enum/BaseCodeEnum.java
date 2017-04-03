@@ -35,7 +35,21 @@ public enum BaseCodeEnum {
 	//生源地类型  城市
 	SOURCE_TYPE_CITY("城市",1),
 	//生源地类型 农村
-	SOURCE_TYPE_COUTRY("农村",2);
+	SOURCE_TYPE_COUTRY("农村",2),
+	//招聘会状态-已发布
+	CARIFREE_STATE_APPY_YES("已发布",1),
+	//招聘会状态-未发布
+	CARIFREE_STATE_APPY_NO("未发布",1),
+	//招聘会状态-已举行
+	CARIFREE_STATE_APPY_HAVED("已举行",1),
+	//招聘会预约状态-已预约
+    CAP_STATE_APPY_APOINTMENT("已预约",1),
+	//招聘会状态-已参加
+	CAP_STATE_APPY_ENTER("已参加",2),
+	//招聘会状态-已逾期
+	CAP_STATE_APPY_MORE("逾期",3),
+	//招聘会状态-已取消
+    CAP_STATE_APPY_CANCEL("已取消",0);
 	private String name;
 	private Integer index;
 	

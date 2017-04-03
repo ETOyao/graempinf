@@ -6,10 +6,10 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import CareerFairAppointment.ICapDao;
-
 import com.wanglei.basic.hibernate.model.Pager;
 import com.wanglei.basic.util.DateUtils;
+import com.wanglei.graempinf_core.graempinf_core.Enum.BaseCodeEnum;
+import com.wanglei.graempinf_core.graempinf_core.dao.ICapDao;
 import com.wanglei.graempinf_core.graempinf_core.dao.ICareerFairDao;
 import com.wanglei.graempinf_core.graempinf_core.model.CareerFair;
 import com.wanglei.graempinf_core.graempinf_core.model.CareerFairAppointment;
@@ -50,7 +50,7 @@ public class CareerFairService implements ICareerFairService {
 		//如果发布不能删
 		CareerFair cftem = careerFairDao.loadCareerFairByUUid(id);
 		Integer cfStatus = cftem.getFinshStatus();
-		if (cfStatus==1){
+		if (cfStatus==BaseCodeEnum.CARIFREE_STATE_APPY_YES.getIndex()){
 			throw new GraEmpInfException("不能删除招聘会信息，已经发布！");
 	}else{
 			careerFairDao.deleteCareerFair(id);
@@ -63,7 +63,7 @@ public class CareerFairService implements ICareerFairService {
 		CareerFair cftem = careerFairDao.loadCareerFairByUUid(cf.getCareerFairUuid());
 		if(null!=cftem){
 			Integer cfStatus = cftem.getFinshStatus();
-			if (cfStatus==1){
+			if (cfStatus==BaseCodeEnum.CARIFREE_STATE_APPY_YES.getIndex()){
 				throw new GraEmpInfException("不能修改招聘会信息，已经发布！");
 			}else{
 				cftem.setCareerFairName(cf.getCareerFairName());

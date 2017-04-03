@@ -3,6 +3,7 @@ package com.wanglei.graempinf.service;
 import java.util.List;
 
 import com.wanglei.basic.hibernate.model.Pager;
+import com.wanglei.graempinf_core.graempinf_core.model.CapCafPro;
 import com.wanglei.graempinf_core.graempinf_core.model.CareerFairAppointment;
 
 /**
@@ -26,7 +27,13 @@ public void add (CareerFairAppointment cap);
  * @param cap
  * @author wanglei 2017年3月24日
  */
-public void update(CareerFairAppointment cap);
+public void updateEnter(CareerFairAppointment cap);
+/**
+ * <p>Description:取消预约<p>
+ * @param cap
+ * @author wanglei 2017年4月2日
+ */
+public void updateCancel(CareerFairAppointment cap);
 /**
  * <p>Description:分页查询列表<p>
  * @param cap
@@ -48,5 +55,8 @@ public List<CareerFairAppointment> listCareerFairAppointment(CareerFairAppointme
  * @author wanglei 2017年3月24日
  */
 public CareerFairAppointment loadByid(String id);
+public List<CareerFairAppointment> loadByCfidAndCapid(String cfid ,String Capid);
+public  Pager<CapCafPro> findCapCapro(CapCafPro cacap);
+public  List<CapCafPro> listCapCapro(CapCafPro cacap);
 
 }

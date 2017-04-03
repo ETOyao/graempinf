@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.wanglei.graempinf_core.graempinf_core.model.GraEmpInfException;
+
 public class CommonWebUtil {
 	 /**
 	 * <p>Description:下载文件<p>
@@ -81,7 +83,9 @@ public class CommonWebUtil {
 	 */
 	public static String wrieExcel(HttpServletRequest request, HttpServletResponse response,Workbook wb,String fielName){
 		 ByteArrayOutputStream os = new ByteArrayOutputStream();
-
+		 if(null==wb){
+			 throw new GraEmpInfException("导出数据为空！");
+		 }
 	        try {
 	            wb.write(os);
 	        } catch (IOException e) {

@@ -8,6 +8,6 @@
 </c:if>
 <c:if test="${isTeacher }">
 <span>
-<a href="<%=request.getContextPath() %>/admin/empinfo/add" class="admin_link">添加就业信息</a>
+<a href="<%=request.getContextPath() %>/admin/empinfo/empinfs" class="admin_link">就业信息列表</a>
 </span>
 </c:if>
