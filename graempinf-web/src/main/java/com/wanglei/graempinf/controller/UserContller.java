@@ -1,6 +1,12 @@
 package com.wanglei.graempinf.controller;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -23,8 +29,10 @@ import com.wanglei.graempinf.service.IChannelService;
 import com.wanglei.graempinf.service.IGroupService;
 import com.wanglei.graempinf.service.IRoleService;
 import com.wanglei.graempinf.service.IUserService;
+import com.wanglei.graempinf.web.GraempinfSessionContext;
 import com.wanglei.graempinf_core.graempinf_core.Enum.RoleType;
 import com.wanglei.graempinf_core.graempinf_core.model.ChannelTree;
+import com.wanglei.graempinf_core.graempinf_core.model.Group;
 import com.wanglei.graempinf_core.graempinf_core.model.Role;
 import com.wanglei.graempinf_core.graempinf_core.model.User;
 
@@ -73,6 +81,26 @@ public class UserContller {
 		model.addAttribute("users",userService.findUserListByPage());
 		return "user/list";
 	}
+	@RequestMapping("/onlineUsers")
+	public String onlineUsers(Model model){
+		    List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();//采用list装数据  
+	       Map<String, HttpSession> onLines=GraempinfSessionContext.getOnlineUsers();    
+	       Iterator<Map.Entry<String, HttpSession>> it= onLines.entrySet().iterator();  
+	        while(it.hasNext()){  
+	            Entry<String, HttpSession> entry=it.next();  
+	            HttpSession sess=entry.getValue();//拿到单个的session对象了  
+	            Map<String, Object> mm =new HashMap<String, Object>();//采用map封装一行数据，然后放在list 中去，就是一个表的数据  
+	            mm.put("id", sess.getId());//获取session的id  
+	            mm.put("createTime",new Date(sess.getCreationTime()));//创建的时间.传过去的是date类型我们前台进行解析，显示出来  
+	            mm.put("lastAccessedTime", new Date(sess.getLastAccessedTime()));//上次访问的时间  
+	            mm.put("user", sess.getAttribute("loginUser"));  
+	            mm.put("ip", sess.getAttribute("ip"));  
+	            //前台需要的信息补全，后台去使用  
+	            list.add(mm);             
+	        }  
+		model.addAttribute("onlineUsers",list);
+		return "user/onlineuserlist";
+	}
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute("userDto",new UserDto());
@@ -85,8 +113,20 @@ public class UserContller {
 	 * @author WangLei 2017年1月31日
 	 */
 	private void inintAddUser(Model model){
-		model.addAttribute("roles",roelService.listRole());
-		model.addAttribute("groups",groupService.listGroup());
+		List<Role> rs = roelService.listRole();
+		List <Group> gs = groupService.listGroup();
+		for(Role r :rs){
+			if(r.getRoleType()==RoleType.ROLE_STUDENT){
+				rs.remove(r);
+			}
+		}
+		for(int i=0;i<gs.size();i++){
+			if("学生".equals(gs.get(i).getGroupName())){
+				gs.remove(i);
+			}
+		}
+		model.addAttribute("roles",rs);
+		model.addAttribute("groups",gs);
 	}
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String add(@Valid UserDto userDto ,BindingResult br, Model model){

@@ -10,10 +10,18 @@
 	background-color: #FFF8F8;
 }
 </style>
+<script type="text/javascript">
+function exit(){
+	document.getElementById('content').contentWindow.isExit();
+}
+function exitSys(){
+	window.location.href = "<%=request.getContextPath() %>"+"/admin/logout";
+}
+</script>
 </head>
 	<frameset rows="120,*"  frameborder="0" noresize frameSpacing="0">
 		<frame name="top" class="bac"  src="<%=request.getContextPath() %>/jsp/admin/top.jsp" frameborder="0" frameSpacing="0"/>
-		<frameset cols="180,*" id="content" frameborder="0" frameSpacing="0">
+		<frameset cols="180,*" frameborder="0" frameSpacing="0">
 			<frame name="nav"  class="bac" src="<%=request.getContextPath() %>/jsp/admin/nav.jsp" style=""frameborder="0"/>
 			<frame name="content" class="bac" id="content" src="<%=request.getContextPath() %>/resources/admin/01.html" frameborder="0"/>
 		</frameset>

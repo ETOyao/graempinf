@@ -8,8 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../commonresource.jsp" %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/main.css"/>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/validate/main.css"/>
 </head>
 <body>
 <div id="content">
@@ -55,7 +53,7 @@
 		<tr>
 			<td colspan="7" class="centerTd">
 				<c:if test="${isAdmin}">
-				<a href="update/${cf.careerFairUuid }" class="list_op">修改信息</a>
+				<a href="update/${cf.careerFairUuid }" class="list_op">修改息信</a>
 				</c:if>
 				<c:if test="${isTeacher}">
 				<a href="update/${cf.careerFairUuid }" class="list_op">修改信息</a>

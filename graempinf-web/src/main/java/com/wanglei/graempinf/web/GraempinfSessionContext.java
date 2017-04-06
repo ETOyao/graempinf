@@ -20,4 +20,11 @@ public class GraempinfSessionContext {
 	public static HttpSession getSession(String sessionId) {
 		return ctx.get(sessionId);
 	}
+	public static long getUserCount(){
+		return ctx.size();
+	}
+	
+	public static Map<String,HttpSession> getOnlineUsers(){
+		return ctx;
+	}
 }

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSessionListener;
 public class GraempinfSessionListener implements HttpSessionListener {
 
 	@Override
-	public void sessionCreated(HttpSessionEvent event) {
+	public void sessionCreated(HttpSessionEvent se) {
 	}
 
 	@Override

@@ -126,8 +126,10 @@ $(function(){
 				<c:if test="${emf.finshStatus eq 9}">已完善</c:if>
 				</td>
 				<td>
-					<%-- <a href="*" title="${user.userUuid }" class="list_op ">审核</a> --%>
 					<a href="update/${emf.empUuid }" class="list_op">更新</a>
+			    <c:if test="${emf.finshStatus eq 9}">
+				<a href="toUploadEmpfile/${emf.empUuid}" class="list_op">上传就业协议</a>
+				</c:if>
 				&nbsp;
 				</td>
 			</tr>

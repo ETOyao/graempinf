@@ -6,12 +6,6 @@
 <head>
 <%@ include file="../commonresource.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/main.css"/>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/zTree/zTreeStyle.css"/>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/tree/jquery.ztree.core-3.5.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/tree/jquery.ztree.excheck-3.5.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/core/jquery.graempinf.core.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/dwr/engine.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/dwr/interface/dwrService.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/admin/setChannel.js"></script>

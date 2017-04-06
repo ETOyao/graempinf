@@ -7,10 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../commonresource.jsp" %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/main.css"/>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/validate/main.css"/>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery-1.7.2.min.js"></script>
 </head>
+<script type="text/javascript">
+$(function(){
+	$("#addForm").graempinfValidate();
+});
+</script>
 <body>
 <div id="content">
 	<h3 class="admin_link_bar">
@@ -21,7 +23,7 @@
 		<thead><tr><td colspan="2">更新用户组功能</td></tr></thead>
 		<sf:hidden path="gruopUuid"/>
 		<tr>
-			<td class="rightTd" width="200px">组名称:</td>
+			<td class="rightTd" width="200px"><span><font color="red">*</font></span>组名称:</td>
 			<td class="leftTd"><sf:input path="groupName" size="30"/></td>
 		</tr>
 		<tr>

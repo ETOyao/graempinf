@@ -43,6 +43,9 @@ $(function(){
 	<li class="navChild">
 		<a href="<%=request.getContextPath() %>/admin/org/orgs" target="content">组织机构管理</a>
 	</li>
+	<li class="navChild">
+		<a href="<%=request.getContextPath() %>/admin/user/onlineUsers" target="content">在线用户查看</a>
+	</li>
 </ul>
 </c:if>
 <c:if test="${isAdmin }">

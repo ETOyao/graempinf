@@ -5,6 +5,7 @@
 			userName:"required",
 			userPassWord:"required",
      		name:"required",
+     		groupName:"required",
 			stuNum:"required",
 			careerFairName:"required",
 			sutName:"required",
@@ -12,6 +13,8 @@
 			examineeNum:"required",
 			idCardNum:"required",
 			email:"email",
+			questionContent:"required",
+			questionAnswer:"required",
 			confirmPwd:{
 				equalTo:"#userPassWord"
 			},
@@ -28,7 +31,10 @@
 			sutName:"学生名称不能为空",
 			examineeNum:"考试号不能为空",
 			idCardNum:"身份证号不能为空",
-			email:"邮箱格式不正确"
+			email:"邮箱格式不正确",
+			questionContent:"反馈内容不能为空",
+			questionAnswer:"答复内容不为空",
+			groupName:"组名不能为空！"
 		},opts?(opts.messages||{}):{});
 		var __defaultOpts = $.extend(opts||{},{
 			rules:__rules,

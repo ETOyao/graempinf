@@ -18,6 +18,7 @@
 		<module>../graempinf-org</module>
 		<module>../graempinf-student</module>
 		<module>../graempinf-careefair</module>
+		<module>../graempinf-question</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
@@ -70,6 +71,11 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>graempinf-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>graempinf-question</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

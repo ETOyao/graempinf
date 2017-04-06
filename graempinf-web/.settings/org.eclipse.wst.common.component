@@ -28,6 +28,9 @@
         <dependent-module archiveName="graempinf-careefair-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/graempinf-careefair/graempinf-careefair">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="graempinf-question-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/graempinf-question/graempinf-question">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="graempinf-web"/>
         <property name="java-output-path" value="/graempinf-web/target/classes"/>
     </wb-module>

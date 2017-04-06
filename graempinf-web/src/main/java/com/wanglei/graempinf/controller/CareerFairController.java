@@ -127,7 +127,7 @@ public class CareerFairController {
 			}
 			return "redirect:/admin/careeFair/careeFairs";
 	}
-	@AuthMethod(role="ROLE_TEACHTER")
+	@AuthMethod(role="ROLE_TEACHTER,ROLE_STUDENT")
 	@RequestMapping(value="/{uuid}",method=RequestMethod.GET)
 	public String load(@PathVariable String uuid ,Model model){
 		model.addAttribute("cf", careerFairService.load(uuid));

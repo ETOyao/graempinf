@@ -7,11 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../commonresource.jsp" %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/main.css"/>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/validate/main.css"/>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery.validate.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/core/jquery.graempinf.validate.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#addForm").graempinfValidate();
@@ -28,9 +23,21 @@ $(function(){
 	<sf:hidden path="userUuid"/><sf:hidden path="userName"/>
 	<sf:hidden path="userPassWord"/>
 		<thead><tr><td colspan="2">修改用户-->${userDto.userName}</td></tr></thead>
+		<c:if test="${isStudent}">
+		<tr>
+			<td class="rightTd">显示名称(可以是中文):</td><td class="leftTd"><sf:input readonly="true" path="userNickName" size="30"/></td>
+		</tr>
+		</c:if>
+		<c:if test="${isTeacher }">
 		<tr>
 			<td class="rightTd">显示名称(可以是中文):</td><td class="leftTd"><sf:input path="userNickName" size="30"/></td>
 		</tr>
+		</c:if>
+		<c:if test="${isAdmin }">
+		<tr>
+			<td class="rightTd">显示名称(可以是中文):</td><td class="leftTd"><sf:input path="userNickName" size="30"/></td>
+		</tr>
+		</c:if>
 		<tr>
 			<td class="rightTd">联系电话:</td><td><sf:input path="userPhone" size="30"/></td>
 		</tr>

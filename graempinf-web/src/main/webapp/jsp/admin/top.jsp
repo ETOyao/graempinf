@@ -17,9 +17,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/admin/main.css"/>
 <script type="text/javascript">
 function exitSystem() {
-	  if(confirm("确认退出吗？")){
-		  window.parent.location.href = $("#contextPath").val()+"/admin/logout"; 
-	  }
+	 window.parent.exit();
 }
 </script>
 </head>

@@ -1,5 +1,7 @@
 package com.wanglei.basic.hibernate.dao;
 
+import java.lang.reflect.ParameterizedType;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +17,6 @@ import org.hibernate.transform.Transformers;
 
 import com.wanglei.basic.hibernate.model.Pager;
 import com.wanglei.basic.hibernate.model.SystemContext;
-
-import java.lang.reflect.ParameterizedType;
-import java.math.BigInteger;
 
 /**
  * <p>Title: 基于Hibernate 4.2.0 的BaseDao</p>
@@ -487,12 +486,10 @@ public class BaseDao<T>  implements IBaseDao<T> {
 	 * @return
 	 * @author WangLei 2017年1月8日
 	 */
-	@SuppressWarnings("rawtypes")
 	public  <N extends Object> Pager<N> findBysqlWithParamsAndalias(String sql, Object[] args, Map<String, Object> alias, Class<?> clazz, boolean hasEntity) {
 		String cq = getCountHql(sql,false);
 		sql = inintSort(sql);
 		SQLQuery sq = getSession().createSQLQuery(sql);
-		System.out.println(cq);
 		SQLQuery cquery = getSession().createSQLQuery(cq);
 		setParameter( sq, args);
 		setAilasParameter(sq, alias);

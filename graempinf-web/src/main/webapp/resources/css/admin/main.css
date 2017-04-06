@@ -1,3 +1,16 @@
+@media (min-width: 768)
+{
+       body
+       {
+           font-size: 17px; 
+       }
+       h1
+       {
+           font-size:24px;
+       }
+}
+
+
 *{
 	margin:0px;
 	padding:0px;
@@ -24,6 +37,26 @@
 	background:url("img/top_logo.jpg") no-repeat;
 	display:table-cell;
 }
+@media (min-width: 768)
+{
+	  #user_operator {
+		padding-top:1%;
+		font-size:12px;
+		color:#fff;
+		display:flex;
+		flex-direction:row ;
+		flex-wrap:wrap;
+	}
+	#user_operator a:link,#user_operator a:visited {
+		color:#fff;
+		text-decoration:none;
+	}
+	#user_operator a:hover {
+		color:#ff0;
+		text-decoration:underline;
+	}
+}
+
 #user_operator {
 	padding-top:1%;
 	font-size:14px;
@@ -193,7 +226,7 @@ h3.admin_link_bar span a {
 	background:#e1e1e9;
 }
 .trMouseover {
-	background:#54A9E1;
+	background:#99CCFF;
 	color:#fff;
 }
 

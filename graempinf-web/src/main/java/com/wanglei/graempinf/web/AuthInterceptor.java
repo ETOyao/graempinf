@@ -47,6 +47,18 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 				log.warn("--------------用户：["+user.getUserName()+"]访问资源"+aname+"受到权限限制!----------");
 				throw new GraEmpInfException("没有权限访问该功能，请联系管理员");};
 			}
+			String ip = request.getHeader("x-forwarded-for");
+		       if(ip == null || ip.length() == 0|| "unknown".equalsIgnoreCase(ip)) {
+		           ip = request.getHeader("Proxy-Client-IP");
+		       }
+		       if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		           ip = request.getHeader("WL-Proxy-Client-IP");
+		       }
+		       if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		           ip = request.getRemoteAddr();
+		          
+		       }
+		     session.setAttribute("ip", ip);
 			 UserSession.set("userSession", session);
 		     UserSession.set("loginUser", user);
 		}

@@ -1,5 +1,6 @@
 package com.wanglei.graempinf.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wanglei.basic.util.ExcelUtiuls;
 import com.wanglei.graempinf.auth.AuthClass;
@@ -121,6 +124,50 @@ public class EmpInfoController {
 	public String show(@PathVariable String empUuid,Model model){
 		model.addAttribute("empinf", empInfService.loadByuuid(empUuid));
 		return "empinf/show";
+	}
+	@AuthMethod(role="ROLE_TEACHTER")
+	@RequestMapping(value="toUploadEmpfile/{empUuid}",method=RequestMethod.GET)
+	public String toUploadEmpfile(@PathVariable String empUuid,Model model){
+		EmployedInfo temempi = empInfService.loadByuuid(empUuid);
+		model.addAttribute("empUuid", empUuid);
+		model.addAttribute("empImgutl", temempi.getEmpAttachment());
+		return "empinf/uploadFile";
+	}
+	@AuthMethod(role="ROLE_TEACHTER")
+	@ResponseBody
+	@RequestMapping(value="uploadEmpfile",produces = "application/text; charset=utf-8")
+	public String uploadEmpfile(HttpServletRequest request, String empUuid ,@RequestParam("empimg") MultipartFile file){
+		log.info("---------开始上传图片--------------");
+	       String msg = "上传图片成功！";
+	       EmployedInfo temempi = empInfService.loadByuuid(empUuid);
+	       if(null != temempi){
+	     	  String path = request.getSession().getServletContext().getRealPath("/resources/empinfoImg");
+	             String _fileName = file.getOriginalFilename();
+	             String fielName =empUuid+"."+_fileName.substring(_fileName.lastIndexOf(".")+1);
+	             File targetFile = new File(path, fielName);
+	             if (!targetFile.exists()) {
+	                 targetFile.mkdirs();
+	             }
+	             // 保存
+	             try {
+	                 file.transferTo(targetFile);
+	                 log.info("---------开始写图片路径入数据库--------------");
+	                 temempi.setEmpAttachment("\\resources\\empinfoImg\\"+fielName);
+	                 empInfService.update(temempi);
+	             } catch (Exception e) {
+	           	  msg="上传图片失败！";
+	                 e.printStackTrace();
+	             }
+	       }
+	       return msg;
+	}
+	@AuthMethod(role="ROLE_STUDENT")
+	@RequestMapping(value="/showEmpFile",method=RequestMethod.GET)
+	public String showEmpFile(Model model){
+		String stuuuid = userService.getCurentLoginUser().getStuUuid();
+		  EmployedInfo emp = empInfService.loadBystuid(stuuuid);
+		model.addAttribute("empImgutl",emp.getEmpAttachment());
+		return "empinf/empInfFileShow";
 	}
 	@AuthMethod(role="ROLE_TEACHTER")
 	 @RequestMapping("/exportempinfo")

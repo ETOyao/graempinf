@@ -7,9 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../commonresource.jsp" %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/validate/main.css"/>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery-1.7.2.min.js"></script>
 </head>
+<script type="text/javascript">
+$(function(){
+	$("#addForm").graempinfValidate();
+});
+</script>
 <body>
 <div id="content">
 	<h3 class="admin_link_bar">
@@ -19,8 +22,8 @@
 	<table class="addTable"  cellspacing="0" cellPadding="0">
 		<thead><tr><td colspan="2">添加用户组功能</td></tr></thead>
 		<tr>
-			<td class="rightTd" width="200px">组名称:</td>
-			<td class="leftTd"><sf:input path="groupName" size="30"/></td>
+			<td class="rightTd" width="200px"><span><font color="red">*</font>组名称:</td>
+			<td class="leftTd"></span><sf:input path="groupName" size="30"/><sf:errors cssClass="errorContainer" path="groupName"/></td>
 		</tr>
 		<tr>
 			<td class="rightTd">组描述:</td>

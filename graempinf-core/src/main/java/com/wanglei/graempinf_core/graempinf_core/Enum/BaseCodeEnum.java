@@ -49,7 +49,11 @@ public enum BaseCodeEnum {
 	//招聘会状态-已逾期
 	CAP_STATE_APPY_MORE("逾期",3),
 	//招聘会状态-已取消
-    CAP_STATE_APPY_CANCEL("已取消",0);
+    CAP_STATE_APPY_CANCEL("已取消",0),
+    //反馈问题处理
+    QUESTION_ANSWER_YES("已处理",1),
+  //反馈问题处理
+    QUESTION_ANSWER_NO("未处理",0);
 	private String name;
 	private Integer index;
 	

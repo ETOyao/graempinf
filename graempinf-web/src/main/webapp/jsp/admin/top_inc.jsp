@@ -16,9 +16,20 @@
 	<script type="text/javascript">
 	  var user ="${loginUser.userNickName }";
 	  var name= "${baseInfo.name }";
-		$(function(){	
-		    systemTime();
-		});
+	  var userCount ='';
+	$(function(){	
+		$.ajax({  
+	          url: '<%=request.getContextPath()%>/getCount' ,  
+	          type: 'GET',   
+	          dataType:"json",
+	          async: false,  
+	          cache: false,  
+	          success: function (returndata) {  
+	        	  userCount=returndata.count;
+	          }
+		     });  
+	    systemTime();
+	});
 	</script>
 	<div id="remind">
 		<span id="showDate">

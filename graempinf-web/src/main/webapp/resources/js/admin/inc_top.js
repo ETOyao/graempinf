@@ -15,7 +15,7 @@
         ss = extra(ss);  
           
         //将时间显示到ID为time的位置，时间格式形如：19:18:02  
-        document.getElementById("showDate").innerHTML="现在是:[<font color=\"red\">"+yy+'年'+MM+'月'+dd+'日'+hh+"时"+mm+"分"+ss+"秒</font>]"+' 欢迎[<b>'+user+'</b>]登录'+name+'';  
+        document.getElementById("showDate").innerHTML="现在是:[<font color=\"red\">"+yy+'年'+MM+'月'+dd+'日'+hh+"时"+mm+"分"+ss+"秒</font>]"+' 欢迎[<b>'+user+'</b>]登录'+name+'     当前在线人数 ['+userCount+']人';  
           
         //每隔1000ms执行方法systemTime()。  
         setTimeout("systemTime()",1000);  
@@ -34,3 +34,4 @@
             return x;  
         }  
     }  
+    

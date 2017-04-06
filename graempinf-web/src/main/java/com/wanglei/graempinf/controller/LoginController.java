@@ -2,6 +2,7 @@ package com.wanglei.graempinf.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wanglei.basic.util.Captcha;
+import com.wanglei.basic.util.JsonUtil;
 import com.wanglei.graempinf.service.IChannelService;
 import com.wanglei.graempinf.service.IUserService;
 import com.wanglei.graempinf.web.GraempinfSessionContext;
@@ -99,7 +101,13 @@ public class LoginController {
 		}
 		return istrue;
 	}
-	
+	@RequestMapping(value="/getCount",produces = "application/text; charset=utf-8")
+	public @ResponseBody String getLogincount(HttpSession session){
+		 long count  = GraempinfSessionContext.getUserCount();
+		 Map<String,Object> res = new HashMap<String, Object>();
+		 res.put("count", String.valueOf(count));
+		 return JsonUtil.toJson(res);
+	}
 	@SuppressWarnings("unchecked")
 	private Set<String> getAllActions(List<Role> rs,HttpSession session) {
 		Set<String> actions = new HashSet<String>();

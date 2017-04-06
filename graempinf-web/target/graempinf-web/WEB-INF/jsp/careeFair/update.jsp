@@ -15,24 +15,16 @@
 <script type="text/javascript">
 $(function(){
 	$("#addForm").graempinfValidate();
-	$(function(){
-		  var opts = {
-			  id:"#coll",
-			  chlid:"#dep",
-			  chlid2:"#team",
-	          type:"1",
-	          chltype:"2",
-	          chltype2:"3",
-	          _url:"<%=request.getContextPath() %>/admin/org/orgs/orgList",
-	          _value:"0",
-	        _defaultvalue1:'${student.collegeid}',
-            _defaultvalue2:'${student.deptid}',
-            _defaultvalue3:'${student.stuTeamid}',
-            _isUpdate:true
+	 var opts = {
+			 id:"#careerFairType",
+			  _url:"<%=request.getContextPath() %>/admin/empinfo/getSelect",
+			  _tyep:"1002",
+			  _defaultvalue:'${cf.careerFairType}'
 		  };
-		 $("#_select").myremoteselect(opts); 
-	});
-
+	 $("#careerFairType").initselect(opts); 
+	 $("#careerFairType").change(function(){
+			$("#careerFairTypeName").val($(this).find("option:selected").text());
+		});
 });
 </script>
 </head>
@@ -41,47 +33,35 @@ $(function(){
 	<h3 class="admin_link_bar">
 		<jsp:include page="inc.jsp"></jsp:include>
 	</h3>
-	<sf:hidden path="souUuid"/>
-	<sf:form method="post" modelAttribute="sst" id="addForm">
-	<sf:hidden path="finshStatus"/>
-	<sf:hidden path="souStuUUid"/>
-	<table  class="addTable" cellspacing="0" cellPadding="0">
-		<thead><tr><td colspan="7">修改生源地信息</td></tr></thead>
+	<sf:form method="post" modelAttribute="cf" id="addForm">
+	<sf:hidden path="careerFairUuid"/>
+	<table class="addTable" cellspacing="0" cellPadding="0">
+		<thead><tr><td colspan="7">更改招聘会信息</td></tr></thead>
 		<tr>
-			<td class="rightTd" >考试号</td>
-			<td class="leftTd"><sf:input readonly="true" path="souExamNum" /></td>
-			<td class="rightTd" >学号:</td>
-			<td class="leftTd"><sf:input readonly="true"  path="souStuNum" /></td>
-			<td class="rightTd" >身份证号:</td>
-			<td class="leftTd"><sf:input readonly="true" path="souIdcardNum" /></td>
+			<td class="rightTd" ><font color="red">*</font>招聘会名称:</td>
+			<td class="leftTd"><sf:input path="careerFairName" /><sf:errors cssClass="errorContainer" path="careerFairName"/></td>
+			<td class="rightTd" >招聘会描述:</td>
+			<td class="leftTd"><sf:textarea path="careerFairDesc" /></td>
+			
 		</tr>
 		<tr>
-			<td class="rightTd" >姓名</td>
-			<td class="leftTd"><sf:input readonly="true" path="souName" /></td>
-			<td class="rightTd" >生源地:</td>
-			<td class="leftTd"><sf:input path="souAddr" /></td>
-			<td class="rightTd" >生源地类型:</td>
+		<td class="rightTd" >招聘会类型:</td>
 			<td class="leftTd">
-			<sf:select path="souSouceType"  class="_select">
-				<sf:options items="${souType}" />
-			</sf:select></td>
+			<select id="careerFairType" name="careerFairType"></select>
+			<input name="careerFairTypeName" id="careerFairTypeName" type="hidden" value="${cf.careerFairTypeName }">
+			</td>
+			<td class="rightTd" >招聘会地址:</td>
+			<td class="leftTd"><sf:input path="careerFairAddr" /></td>
 		</tr>
 		<tr>
-			<td class="rightTd" >家庭住址</td>
-			<td class="leftTd"><sf:input path="souHomeAddr" /></td>
-			<td class="rightTd" > 电话:</td>
-			<td class="leftTd"><sf:input path="souHomePhoe" /></td>
-			<td class="rightTd" >邮编:</td>
-			<td class="leftTd"><sf:input path="souHomePostCode" /></td>
+			<td class="rightTd" >招聘会举行时间:</td>
+			<td class="leftTd">
+			<input class="easyui-datebox" name="careerFairDate" value="${cf.careerFairDate }"></input>
+			<td class="rightTd" >招聘会承办单位:</td>
+			<td class="leftTd"><sf:input path="careerFairUndertaker" /></td>
 		</tr>
 		<tr>
-			<td class="rightTd" >是否低保</td>
-			<td class="leftTd" colspan="5"><sf:select path="souIsLowPro" style="width:15%" class="_select">
-				<sf:options items="${isLowpro}" />
-			</sf:select></td>
-		</tr>
-		<tr>
-			<td colspan="7" class="centerTd"><input type="submit" value="更  新" />&nbsp;&nbsp;&nbsp;<input type="reset" value="重     置"/></td>
+			<td colspan="7" class="centerTd"><input type="submit" value="更新招聘会信息" class="btn"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="重     置"/></td>
 		</tr>
 	</table>
 	</sf:form>
