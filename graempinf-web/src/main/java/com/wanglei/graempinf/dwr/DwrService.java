@@ -47,8 +47,6 @@ public class DwrService implements IDwrService{
 	@RemoteMethod
 	public void addGroupChannel(String gid, int cid,HttpSession session) {
 		groupService.addGroupChannel(gid, cid);
-		log.info("用户：["+userService.getCurentLoginUser().getUserNickName()+"]为用户组！"+
-				gid+"分配模块"+cid+"的管理权限");
 		Webutils.putChannels(session, channelService);
 	}
 
@@ -56,8 +54,6 @@ public class DwrService implements IDwrService{
 	@RemoteMethod
 	public void deleteGroupChannel(String gid, int cid,HttpSession session) {
 		groupService.deleteGroupChannel(gid, cid);
-		log.info("用户：["+userService.getCurentLoginUser().getUserNickName()+"]为用户组！"+
-				gid+"取消模块"+cid+"的管理权限");
 		Webutils.putChannels(session, channelService);
 	}
 }

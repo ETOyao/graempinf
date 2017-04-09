@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.wanglei.basic.hibernate.dao.IBaseDao;
 import com.wanglei.basic.hibernate.model.Pager;
+import com.wanglei.graempinf_core.graempinf_core.model.EmpInfoCount;
 import com.wanglei.graempinf_core.graempinf_core.model.EmployedInfo;
 import com.wanglei.graempinf_core.graempinf_core.model.SelectUtils;
-import com.wanglei.graempinf_core.graempinf_core.model.SourceStudent;
 
 /**
  * <p>Title:就业信息Dao </p>
@@ -78,5 +78,18 @@ public interface IEmpInfoDao extends IBaseDao<EmployedInfo> {
 	 * @author wanglei 2017年3月16日
 	 */
 	public List<SelectUtils> listByType(String type);
+	/**
+	 * <p>Description:就业率统计<p>
+	 * @return
+	 * @author wanglei 2017年4月9日
+	 */
+	public List<EmpInfoCount> listCountEmpinf(EmpInfoCount ec);
+	/**
+	 * <p>Description:分页查找<p>
+	 * @param ec
+	 * @return
+	 * @author wanglei 2017年4月9日
+	 */
+	public Pager<EmpInfoCount> findByPagercountEmpinf(EmpInfoCount ec);
 	
 }

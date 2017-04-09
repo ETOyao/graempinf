@@ -3,6 +3,7 @@ package com.wanglei.graempinf.service;
 import java.util.List;
 
 import com.wanglei.basic.hibernate.model.Pager;
+import com.wanglei.graempinf_core.graempinf_core.model.EmpInfoCount;
 import com.wanglei.graempinf_core.graempinf_core.model.EmployedInfo;
 import com.wanglei.graempinf_core.graempinf_core.model.SelectUtils;
 
@@ -57,5 +58,17 @@ public interface IEmpInfService {
 	 * @author wanglei 2017年3月19日
 	 */
 	public EmployedInfo loadBystuid(String stuuid);
-	
+	/**
+	 * <p>Description:就业率统计<p>
+	 * @return
+	 * @author wanglei 2017年4月9日
+	 */
+	public List<EmpInfoCount> listCountEmpinf(EmpInfoCount ec);
+	/**
+	 * <p>Description:分页查找<p>
+	 * @param ec
+	 * @return
+	 * @author wanglei 2017年4月9日
+	 */
+	public Pager<EmpInfoCount> findByPagercountEmpinf(EmpInfoCount ec);
 }

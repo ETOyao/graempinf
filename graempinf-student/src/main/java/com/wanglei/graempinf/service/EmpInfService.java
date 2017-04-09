@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.wanglei.basic.hibernate.model.Pager;
 import com.wanglei.graempinf_core.graempinf_core.dao.IEmpInfoDao;
+import com.wanglei.graempinf_core.graempinf_core.model.EmpInfoCount;
 import com.wanglei.graempinf_core.graempinf_core.model.EmployedInfo;
 import com.wanglei.graempinf_core.graempinf_core.model.SelectUtils;
 @Service("empInfoService")
@@ -48,6 +49,14 @@ public class EmpInfService implements IEmpInfService {
 	@Override
 	public EmployedInfo loadBystuid(String stuuid) {
 		return empInfoDao.loadByStuNum(stuuid);
+	}
+	@Override
+	public List<EmpInfoCount> listCountEmpinf(EmpInfoCount ec) {
+		return empInfoDao.listCountEmpinf(ec);
+	}
+	@Override
+	public Pager<EmpInfoCount> findByPagercountEmpinf(EmpInfoCount ec) {
+		return empInfoDao.findByPagercountEmpinf(ec);
 	}
 
 }

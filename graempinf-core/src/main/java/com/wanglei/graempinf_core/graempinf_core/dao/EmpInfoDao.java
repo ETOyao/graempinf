@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.wanglei.basic.hibernate.dao.BaseDao;
 import com.wanglei.basic.hibernate.model.Pager;
 import com.wanglei.basic.util.StringUtils;
+import com.wanglei.graempinf_core.graempinf_core.model.EmpInfoCount;
 import com.wanglei.graempinf_core.graempinf_core.model.EmployedInfo;
 import com.wanglei.graempinf_core.graempinf_core.model.SelectUtils;
 @Repository("empInfoDao")
-public class EmpInfoDao extends BaseDao<EmployedInfo> implements IEmpInfoDao {
+public  class EmpInfoDao extends BaseDao<EmployedInfo> implements IEmpInfoDao {
 	@Override
 	public EmployedInfo add(EmployedInfo empi){
 		return super.add(empi);
@@ -126,5 +127,97 @@ public class EmpInfoDao extends BaseDao<EmployedInfo> implements IEmpInfoDao {
 		
 		return super.listBysqlWithParam(sql, type, SelectUtils.class, false);
 	}
-
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<EmpInfoCount> listCountEmpinf(EmpInfoCount ec) {
+		Map<String ,Object>  obj = this.getSql2(ec);
+		Map<String,Object> alias = null;
+		if(null!=obj.get("alias")){
+			alias=(Map<String,Object>)obj.get("alias") ;
+		}
+		String sql = obj.get("sql").toString();
+		return listBysqlWithalias(sql, alias, EmpInfoCount.class, false);
+	}
+	private Map<String ,Object> getSql2(EmpInfoCount ec){
+		Map<String ,Object> reobj = new HashMap <String, Object>();
+		StringBuffer sbf = new StringBuffer();
+		String sql = " select "+
+				" t.collegeName,"+
+				" t.collegeNum,"+
+				" sum(t1.ctn1) utn,"+
+				" sum(t2.ctn2) atn,"+
+				" sum(t3.ctn3) ttn,"+
+				" ROUND((sum(t1.ctn1)/sum(t3.ctn3))*100,2) perutn,"+
+				" ROUND((sum(t2.ctn2)/sum(t3.ctn3))*100,2) peratn"+
+				" from t_student t"+
+				" LEFT JOIN"+
+				" ("+
+				" 	SELECT "+
+				" 	 te.empStuUUid,"+
+				"    count(1) ctn1 "+
+				"    FROM "+
+				"    t_empinfo te"+
+				"    WHERE"+
+				" 	 te.finshStatus = 0"+
+				" 	 GROUP BY"+
+				" 		te.empStuUUid"+
+				" ) t1"+
+				" ON"+
+				" t.stuUuid in(t1.empStuUUid)"+
+				" LEFT JOIN"+
+				" ("+
+				" 	SELECT "+
+				" 	 te.empStuUUid,"+
+				"    count(1) ctn2"+
+				"    FROM "+
+				"    t_empinfo te"+
+				"    WHERE"+
+				" 	 te.finshStatus = 9"+
+				" 	 GROUP BY"+
+				" 		te.empStuUUid"+
+				" ) t2"+
+				" ON"+
+				" t.stuUuid in(t2.empStuUUid)"+
+				" LEFT JOIN"+
+				" ("+
+				" 	SELECT "+
+				" 	 te.empStuUUid,"+
+				"    count(1) ctn3"+
+				"    FROM "+
+				"    t_empinfo te"+
+				" 	 GROUP BY"+
+				" 		te.empStuUUid"+
+				" ) t3"+
+				" ON"+
+				" t.stuUuid in(t3.empStuUUid)"+
+				" WHERE 1=1 ";
+		sbf.append(sql);
+		Map<String, Object> alias = null;
+		if(ec!=null){
+			alias=new HashMap<String, Object>();
+			if(StringUtils.isNotNull(ec.getCollegeName())){
+				sbf.append(" and t.collegeName like:collegeName ");
+				alias.put("collegeName",StringUtils.gennerateLike(ec.getCollegeName()));
+			}
+			if(StringUtils.isNotNull(ec.getCollegeNum())){
+				sbf.append(" and t.collegeNum like:collegeNum ");
+				alias.put("collegeNum",StringUtils.gennerateLike(ec.getCollegeNum()));
+			}
+		}
+		sbf.append(" GROUP BY t.collegeName");
+		reobj.put("sql", sbf.toString());
+		reobj.put("alias", alias);
+		return reobj;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public Pager<EmpInfoCount> findByPagercountEmpinf(EmpInfoCount ec) {
+		Map<String ,Object>  obj = this.getSql2(ec);
+		Map<String,Object> alias = null;
+		if(null!=obj.get("alias")){
+			alias=(Map<String,Object>)obj.get("alias") ;
+		}
+		String sql = obj.get("sql").toString();
+		return  super.findBysqlWithalias(sql,  alias, EmpInfoCount.class, false);
+	}
 }

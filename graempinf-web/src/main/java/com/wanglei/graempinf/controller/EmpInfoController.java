@@ -29,6 +29,7 @@ import com.wanglei.graempinf.auth.AuthMethod;
 import com.wanglei.graempinf.service.IEmpInfService;
 import com.wanglei.graempinf.service.IUserService;
 import com.wanglei.graempinf.web.CommonWebUtil;
+import com.wanglei.graempinf_core.graempinf_core.model.EmpInfoCount;
 import com.wanglei.graempinf_core.graempinf_core.model.EmployedInfo;
 import com.wanglei.graempinf_core.graempinf_core.model.GraEmpInfException;
 import com.wanglei.graempinf_core.graempinf_core.model.SelectUtils;
@@ -211,4 +212,40 @@ public class EmpInfoController {
 	public List<SelectUtils> getSelect(@PathVariable String type){
 		return empInfService.listByType(type);
 	}
+	
+	@AuthMethod(role="ROLE_TEACHTER")
+	@RequestMapping(value="listCount",method = RequestMethod.GET)
+	public String listCount(Model model,EmpInfoCount ec){
+		model.addAttribute("ec", ec);
+		model.addAttribute("ecs", empInfService.listCountEmpinf(ec));
+		return "empinf/empinfocountlist";
+	}
+	@AuthMethod(role="ROLE_TEACHTER")
+	 @RequestMapping("/exportempinfocount")
+		public String exPortCount(EmpInfoCount ec,HttpServletRequest request, HttpServletResponse response){
+			 List<EmpInfoCount> empis =empInfService.listCountEmpinf(ec);
+			 Workbook wf= ExcelUtiuls.generateExcel(getMapByEmpinf2(empis), "就业信息统计");
+			 return CommonWebUtil.wrieExcel(request, response, wf,"就业信息统计.xls");
+		 }
+		 /**
+		 * <p>Description:根据实体类获得导出map<p>
+		 * @param empis
+		 * @return
+		 * @author wanglei 2017年3月10日
+		 */
+		private List<Map<String,String>> getMapByEmpinf2(List<EmpInfoCount> empis){
+			List<Map<String,String>> lms = new ArrayList<Map<String,String>>(); 
+			for(EmpInfoCount empi:empis){
+				Map <String,String> stm = new HashMap<String,String>();
+				stm.put("学院名称", empi.getCollegeName());
+				stm.put("学院编号", empi.getCollegeNum());
+				stm.put("就业人数（人）", empi.getAtn()==null?"0": empi.getAtn().toString()+"");
+				stm.put("未就业人数（人）", empi.getUtn()==null?"0": empi.getUtn().toString()+"");
+				stm.put("总人数（人）", empi.getUtn()==null?"0": empi.getUtn().toString()+"");
+				stm.put("就业率", empi.getPeratn()==null?"0%": empi.getPeratn().toString()+"%");
+				stm.put("未就业率", empi.getPerutn()==null?"0%": empi.getPerutn().toString()+"%");
+				lms.add(stm);
+			}
+			return lms;
+		 } 
 }
