@@ -217,7 +217,7 @@ public class EmpInfoController {
 	@RequestMapping(value="listCount",method = RequestMethod.GET)
 	public String listCount(Model model,EmpInfoCount ec){
 		model.addAttribute("ec", ec);
-		model.addAttribute("ecs", empInfService.listCountEmpinf(ec));
+		model.addAttribute("ecs", empInfService.findByPagercountEmpinf(ec));
 		return "empinf/empinfocountlist";
 	}
 	@AuthMethod(role="ROLE_TEACHTER")

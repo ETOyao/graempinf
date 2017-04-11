@@ -142,14 +142,18 @@ public  class EmpInfoDao extends BaseDao<EmployedInfo> implements IEmpInfoDao {
 		Map<String ,Object> reobj = new HashMap <String, Object>();
 		StringBuffer sbf = new StringBuffer();
 		String sql = " select "+
-				" t.collegeName,"+
-				" t.collegeNum,"+
+				" org.`name` as collegeName,"+
+				" org.`orgCode` as collegeNum ,"+
 				" sum(t1.ctn1) utn,"+
 				" sum(t2.ctn2) atn,"+
 				" sum(t3.ctn3) ttn,"+
 				" ROUND((sum(t1.ctn1)/sum(t3.ctn3))*100,2) perutn,"+
 				" ROUND((sum(t2.ctn2)/sum(t3.ctn3))*100,2) peratn"+
-				" from t_student t"+
+				" from t_org org "+
+				" left JOIN "+
+				" t_student t "+
+				" ON "+
+				" t.collegeNum = org.orgCode "+
 				" LEFT JOIN"+
 				" ("+
 				" 	SELECT "+
@@ -190,21 +194,22 @@ public  class EmpInfoDao extends BaseDao<EmployedInfo> implements IEmpInfoDao {
 				" ) t3"+
 				" ON"+
 				" t.stuUuid in(t3.empStuUUid)"+
-				" WHERE 1=1 ";
+				" WHERE "
+				+ " CHARACTER_LENGTH(org.orgCode) =5";
 		sbf.append(sql);
 		Map<String, Object> alias = null;
 		if(ec!=null){
 			alias=new HashMap<String, Object>();
 			if(StringUtils.isNotNull(ec.getCollegeName())){
-				sbf.append(" and t.collegeName like:collegeName ");
+				sbf.append(" and org.`name` like:collegeName ");
 				alias.put("collegeName",StringUtils.gennerateLike(ec.getCollegeName()));
 			}
 			if(StringUtils.isNotNull(ec.getCollegeNum())){
-				sbf.append(" and t.collegeNum like:collegeNum ");
+				sbf.append(" and org.orgCode like:collegeNum ");
 				alias.put("collegeNum",StringUtils.gennerateLike(ec.getCollegeNum()));
 			}
 		}
-		sbf.append(" GROUP BY t.collegeName");
+		sbf.append("  GROUP BY org.`name`");
 		reobj.put("sql", sbf.toString());
 		reobj.put("alias", alias);
 		return reobj;

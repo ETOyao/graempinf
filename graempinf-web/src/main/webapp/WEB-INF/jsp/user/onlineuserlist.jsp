@@ -9,6 +9,20 @@
  <meta name="viewport" content="width=device-width,initial-scale=1">
 <%@ include file="../commonresource.jsp" %>
 </head>
+<script type="text/javascript">
+function killUser(id){
+	    $.ajax({  
+        url: 'killuser/'+id ,  
+        type: 'GET',  
+        async: true,  
+        dataType:'json',
+        cache: false,  
+        success: function (returndata) {  
+      		showInfo(returndata.msg);
+        }
+	     });   
+	}
+</script>
 <body>
 <div id="content">
 	<h3 class="admin_link_bar">
@@ -22,6 +36,7 @@
 			<td>IP</td>
 			<td>创建时间</td>
 			<td>最近访问时间</td>
+			<td>操作</td>
 		</tr>
 		</thead>
 		<tbody>
@@ -33,6 +48,7 @@
 				<td>${ou.ip }</td>
 				<td><fmt:formatDate value="${ou.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
 				<td><fmt:formatDate value="${ou.lastAccessedTime }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
+				<td><a href="javaScript:void()"  onclick="return killUser('${ou.id }')" class="list_op">踢人</a></td>
 			</tr>
 		</c:forEach>
 		</c:if>

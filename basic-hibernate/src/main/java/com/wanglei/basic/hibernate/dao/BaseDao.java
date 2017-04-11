@@ -499,10 +499,12 @@ public class BaseDao<T>  implements IBaseDao<T> {
 		setPagers(sq, pages);
 		if(hasEntity){
 			sq.addEntity(getClz());
-			long total = ((BigInteger)cquery.uniqueResult()).longValue();
+			BigInteger bg =(BigInteger)cquery.uniqueResult();
+			long total = bg==null?0:bg.longValue();
 			pages.setTotal(total);
 		}else{//如果不是hibernate转换的实体类要转化成实体类
-			long total = ((BigInteger)cquery.uniqueResult()).longValue();
+			BigInteger bg =(BigInteger)cquery.uniqueResult();
+			long total = bg==null?0:bg.longValue();
 			cquery.setResultTransformer(Transformers.aliasToBean(clazz));  
 			pages.setTotal(total);
 			

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wanglei.basic.util.JsonUtil;
 import com.wanglei.graempinf.auth.AuthClass;
 import com.wanglei.graempinf.auth.AuthMethod;
 import com.wanglei.graempinf.dto.UserDto;
@@ -244,5 +245,21 @@ public class UserContller {
 			return channelService.generateTree();
 		}
 		return groupService.generateUserChannelTree(userUuid);
+	}
+	@RequestMapping(value="/killuser/{id}",produces = "application/json; charset=utf-8")
+	public @ResponseBody String killUser(@PathVariable String id,HttpSession session2){
+		Map<String,HttpSession> onLines	= GraempinfSessionContext.getOnlineUsers();
+		 Map<String,Object> res = new HashMap<String, Object>();
+		if(id.equals(session2.getId())){
+			res.put("msg", "不能踢自己！");
+		}
+		else if(onLines.containsKey(id)){
+	            HttpSession session = onLines.get(id);//得到该session
+	            session.invalidate();//移除该session
+	            res.put("msg", "该用户已被踢出！");
+	        }else{
+	        	 res.put("msg", "该用户已不存在！");
+	        }
+		  return JsonUtil.toJson(res);
 	}
 }
