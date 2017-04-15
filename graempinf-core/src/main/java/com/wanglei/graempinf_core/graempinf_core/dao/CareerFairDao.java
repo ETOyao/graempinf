@@ -75,6 +75,10 @@ public class CareerFairDao extends BaseDao<CareerFair> implements ICareerFairDao
 				sbf.append(" and cf.careerFairType =:careerFairType");
 				alias.put("careerFairType",caf.getCareerFairType());
 			} 
+			 if(null!=caf.getAttr1()){
+					sbf.append(" and cf.attr1 =:adduid");
+					alias.put("adduid",caf.getAttr1());
+			} 
 			if(null!=caf.getCareerFairDate()){
 				sbf.append(" and cf.careerFairDate =:careerFairDate");
 				alias.put("careerFairDate",caf.getCareerFairDate());

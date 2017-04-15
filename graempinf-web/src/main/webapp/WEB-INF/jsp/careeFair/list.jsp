@@ -56,8 +56,10 @@
 	<td >
 	<select name="finshStatus"  class="_select">
 				<option value="-1">全部</option>
-				<option value="0">未发布</option>
+				<option value="0">待审核</option>
+				<option value="2">审核同意</option>
 				<option value="1">已发布</option>
+				<option value="3">审核不同意</option>
 			</select>
 	</td>
 	<td colspan="7">
@@ -95,18 +97,26 @@
 				<td>${cf.careerPerson}</td>
 				<td>${cf.careerFairUndertaker}</td>
 				<td>
-				<c:if test="${cf.finshStatus eq 0}">未发布</c:if>
+				<c:if test="${cf.finshStatus eq 0}">待审核</c:if>
 				<c:if test="${cf.finshStatus eq 1}">已发布</c:if>
-				<c:if test="${cf.finshStatus eq 3}">已存在预约</c:if>
+				<c:if test="${cf.finshStatus eq 2}">审核同意</c:if>
+				<c:if test="${cf.finshStatus eq 3}">审核不同意</c:if>
 				</td>
 				<td>
+					<c:if test="${cf.finshStatus ==0 || cf.finshStatus ==3}">
 					<a href="update/${cf.careerFairUuid }" class="list_op">更新</a>
 					<a href="delete/${cf.careerFairUuid }" class="list_op delete">删除</a>
-					<c:if test="${cf.finshStatus eq 0}">
+					</c:if>
+					<c:if test="${cf.finshStatus eq 2}">
 					<a href="apply/${cf.careerFairUuid }" class="list_op">发布</a>
 					</c:if>
 					<c:if test="${cf.finshStatus eq 1}">
 					<a href="cancel/${cf.careerFairUuid }" class="list_op">取消发布</a>
+					</c:if>
+					<c:if test="${isAdmin }">
+					<c:if test="${cf.finshStatus eq 0}">
+					<a href="${cf.careerFairUuid }" class="list_op">审核</a>
+					</c:if>
 					</c:if>
 					
 				</td>

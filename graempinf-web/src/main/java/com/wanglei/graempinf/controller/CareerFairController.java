@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
@@ -36,6 +37,7 @@ import com.wanglei.graempinf.service.ICapService;
 import com.wanglei.graempinf.service.ICareerFairService;
 import com.wanglei.graempinf.service.IUserService;
 import com.wanglei.graempinf.web.CommonWebUtil;
+import com.wanglei.graempinf_core.graempinf_core.Enum.BaseCodeEnum;
 import com.wanglei.graempinf_core.graempinf_core.model.CareerFair;
 import com.wanglei.graempinf_core.graempinf_core.model.CareerFairAppointment;
 import com.wanglei.graempinf_core.graempinf_core.model.GraEmpInfException;
@@ -72,8 +74,11 @@ public class CareerFairController {
 	}
 	@AuthMethod(role="ROLE_TEACHTER")
 	@RequestMapping(value="careeFairs",method=RequestMethod.GET)
-	public String careeFairs(CareerFair cf,Model model){
+	public String careeFairs(CareerFair cf,Model model,HttpSession session){
 		model.addAttribute("cf", cf);
+		if((Boolean)session.getAttribute("isAdmin")!=true){
+			cf.setAttr1(userService.getCurentLoginUser().getUserUuid());
+		}
 		model.addAttribute("cfs", careerFairService.findByPager(cf));
 		return "careeFair/list";
 	}
@@ -95,6 +100,7 @@ public class CareerFairController {
 		}
 		cf.setCreateCareerFairDate(DateUtils.getCurrentTimestamp());
 		cf.setFinshStatus(0);
+		cf.setAttr1(userService.getCurentLoginUser().getUserUuid());
 		cf.setCareerPerson(userService.getCurentLoginUser().getUserNickName());
 		careerFairService.add(cf);
 		return "redirect:/admin/careeFair/careeFairs";
@@ -121,6 +127,7 @@ public class CareerFairController {
 			}
 			CareerFair temcf = careerFairService.load(uuid);
 			if(null!=temcf){
+				cf.setFinshStatus(BaseCodeEnum.CARIFREE_STATE_ADUIT_WAIT.getIndex());
 				careerFairService.update(cf);
 			}else{
 				throw new GraEmpInfException("更新的招聘会信息不存在！更新错误");	
@@ -143,13 +150,29 @@ public class CareerFairController {
 		careerFairService.updateCareerFairApply(cf);
 		return "redirect:/admin/careeFair/careeFairs";
 	}
+	@RequestMapping(value="/aduit/{uuid}/{flag}",method=RequestMethod.GET)
+	public String aduit(@PathVariable String uuid,@PathVariable String flag){
+		CareerFair cf = careerFairService.load(uuid);
+		if("yes".equals(flag)){
+			java.sql.Timestamp d = DateUtils.getCurrentTimestamp();
+			if(cf.getCareerFairDate().before(d)){
+				throw new GraEmpInfException("不能同意发布，该发布会举行时间已过！");	
+			}else{
+				cf.setFinshStatus(2);
+			 }
+		}else if("no".equals(flag)){
+			cf.setFinshStatus(3);
+		}
+		careerFairService.update(cf);
+		return "redirect:/admin/careeFair/careeFairs";
+	}
 	@AuthMethod(role="ROLE_TEACHTER")
 	@RequestMapping(value="/cancel/{uuid}",method=RequestMethod.GET)
 	public String cancel(@PathVariable String uuid){
 		CareerFair cf = careerFairService.load(uuid);
 		cf.setApplayCareerFairDate(null);
 		cf.setApplyPerson(null);
-		cf.setFinshStatus(0);
+		cf.setFinshStatus(BaseCodeEnum.CARIFREE_STATE_ADUIT_YES.getIndex());
 		careerFairService.updateCareerFairCancel(cf);
 		return "redirect:/admin/careeFair/careeFairs";
 	}

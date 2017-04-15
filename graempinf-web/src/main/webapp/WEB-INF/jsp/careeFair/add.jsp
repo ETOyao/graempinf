@@ -45,7 +45,7 @@ $(function(){
 		<tr>
 		<td class="rightTd" >招聘会类型:</td>
 			<td class="leftTd">
-			<select id="careerFairType" name="careerFairType"></select>
+			<select id="careerFairType" class="_select" name="careerFairType"></select>
 			<input name="careerFairTypeName" id="careerFairTypeName" type="hidden" value="${cf.careerFairTypeName }">
 			</td>
 			<td class="rightTd" >招聘会地址:</td>

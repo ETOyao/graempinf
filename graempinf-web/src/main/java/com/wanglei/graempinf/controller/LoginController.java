@@ -85,7 +85,7 @@ public class LoginController {
 		if(!isAdmin) {
 			session.setAttribute("allActions", getAllActions(rs, session));
 			session.setAttribute("isStudent", isRole(rs,RoleType.ROLE_STUDENT));
-		      session.setAttribute("isTeacher", isRole(rs,RoleType.ROLE_TEACHTER));
+		    session.setAttribute("isTeacher", isRole(rs,RoleType.ROLE_TEACHTER));
 		}
 		log.info("---------------------用户["+loginUser.getUserNickName()+"]登录成功！"+"-----------");
 		session.removeAttribute("cc");

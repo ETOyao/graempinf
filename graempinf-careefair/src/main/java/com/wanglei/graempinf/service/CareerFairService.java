@@ -73,6 +73,7 @@ public class CareerFairService implements ICareerFairService {
 				cftem.setCareerFairDate(cf.getCareerFairDate());
 				cftem.setCareerFairAddr(cf.getCareerFairAddr());
 				cftem.setCareerFairUndertaker(cf.getCareerFairUndertaker());
+				cftem.setFinshStatus(cf.getFinshStatus());
 				careerFairDao.updateCareerFair(cftem);
 			}
 		}else{

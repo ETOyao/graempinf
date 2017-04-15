@@ -126,11 +126,20 @@ $(function(){
 				<c:if test="${emf.finshStatus eq 9}">已完善</c:if>
 				</td>
 				<td>
-					<a href="update/${emf.empUuid }" class="list_op">更新</a>
 			    <c:if test="${emf.finshStatus eq 9}">
 				<a href="toUploadEmpfile/${emf.empUuid}" class="list_op">上传就业协议</a>
 				</c:if>
 				&nbsp;
+				<c:if test="${isAdmin }">
+					  <a href="update/${emf.empUuid }" class="list_op">更新</a>
+				&nbsp;
+				</c:if>
+				<c:if test="${not isAdmin }">
+				<c:if test="${emf.finshStatus != 9}">
+					  <a href="update/${emf.empUuid }" class="list_op">更新</a>
+					&nbsp;
+				</c:if>
+				</c:if>
 				</td>
 			</tr>
 		</c:forEach>

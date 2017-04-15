@@ -128,8 +128,9 @@ function deleteItem() {
 <form name="contentForm" id="contentForm">
 	<table width="970" cellspacing="0" cellPadding="0" id="listTable">
 		<thead>
-		<tr>
+		<tr>  <c:if test="${isAdmin }">
 			 <td><input class="allChoose"name="allChoose" id="allChoose" type="checkbox" onClick="checkAll()"></td>
+			 </c:if>
 			<td>编号</td>
 			<td>准考证号</td>
 			<td>学号</td>
@@ -145,8 +146,9 @@ function deleteItem() {
 		</thead>
 		<tbody>
 		<c:forEach items="${students.datas}" var="stu">
-			<tr>
+			<tr> <c:if test="${isAdmin }">
 				<td class="tc"><input name="selectflag" value="${stu.stuUuid}" type="checkbox"></td>
+				</c:if>
 				<td>${students.datas.indexOf(stu)+1}&nbsp;</td>
 				<td>${stu.examineeNum }</td>
 				<td>${stu.stuNum}<td>
@@ -164,9 +166,17 @@ function deleteItem() {
 				<c:if test="${stu.finshStatus eq 9}">已完善</c:if>
 				</td>
 				<td>
-					<%-- <a href="*" title="${user.userUuid }" class="list_op ">审核</a> --%>
-					<a href="update/${stu.stuUuid }" class="list_op">更新</a>
 				&nbsp;
+				<c:if test="${isAdmin }">
+					  <a href="update/${stu.stuUuid }" class="list_op">更新</a>
+				&nbsp;
+				</c:if>
+				<c:if test="${not isAdmin }">
+				<c:if test="${stu.finshStatus != 9}">
+					<a href="update/${stu.stuUuid }" class="list_op">更新</a>
+					&nbsp;
+				</c:if>
+				</c:if>
 				</td>
 			</tr>
 		</c:forEach>
@@ -180,7 +190,11 @@ function deleteItem() {
 				<jsp:param value="${students.size}" name="size"/>
 			</jsp:include>
 			</td>
-			<td><a href="javascript:void(0)" title="" class="list_op "  onclick="return deleteItem()" >删除</a></td>
+			<td>
+			<c:if test="${isAdmin }">
+			<a href="javascript:void(0)" title="" class="list_op "  onclick="return deleteItem()" >删除</a>
+			</c:if>
+			</td>
 		</tr>
 		</tfoot>
 	</table>

@@ -116,9 +116,17 @@
 				<c:if test="${sst.finshStatus eq 9}">已完善</c:if>
 				</td>
 				<td>
+				<c:if test="${isAdmin }">
 					<a href="update/${sst.souUuid }" class="list_op">更新</a>
 				&nbsp;
-				</td>
+				</c:if>
+				<c:if test="${not isAdmin }">
+				<c:if test="${sst.finshStatus != 9}">
+					<a href="update/${sst.souUuid }" class="list_op">更新</a>
+					&nbsp;
+				</c:if>
+				</c:if>
+			</td>	
 			</tr>
 		</c:forEach>
 		</tbody>

@@ -39,7 +39,11 @@ public enum BaseCodeEnum {
 	//招聘会状态-已发布
 	CARIFREE_STATE_APPY_YES("已发布",1),
 	//招聘会状态-未发布
-	CARIFREE_STATE_APPY_NO("未发布",1),
+	CARIFREE_STATE_ADUIT_WAIT("待审核",0),
+	//招聘会状态-未发布
+	CARIFREE_STATE_ADUIT_YES("审核同意",2),
+	//招聘会状态-未发布
+	CARIFREE_STATE_ADUIT_NO("审核不同意",3),
 	//招聘会状态-已举行
 	CARIFREE_STATE_APPY_HAVED("已举行",1),
 	//招聘会预约状态-已预约

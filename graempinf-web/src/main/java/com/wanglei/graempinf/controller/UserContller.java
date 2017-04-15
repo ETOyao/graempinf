@@ -1,5 +1,6 @@
 package com.wanglei.graempinf.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wanglei.basic.util.JsonUtil;
+import com.wanglei.basic.util.SecurityUtil;
 import com.wanglei.graempinf.auth.AuthClass;
 import com.wanglei.graempinf.auth.AuthMethod;
 import com.wanglei.graempinf.dto.UserDto;
@@ -197,7 +199,19 @@ public class UserContller {
 		model.addAttribute(u);
 		return "user/updatePwd";
 	}
-	
+	@RequestMapping(value="/resetpasswd/{userUuid}",method=RequestMethod.GET)
+	@AuthMethod
+	public String resetpasswd(Model model,@PathVariable String userUuid) {
+		User u = userService.loadUser(userUuid);
+		try {
+			u.setUserPassWord(SecurityUtil.md5(u.getUserName(), u.getUserName()));
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		userService.update(u);
+		return "redirect:/admin/user/users";
+	}
 	@RequestMapping(value="/updatePwd",method=RequestMethod.POST)
 	@AuthMethod
 	public String updatePwd(String userUuid,String oldPwd,String userPassWord) {

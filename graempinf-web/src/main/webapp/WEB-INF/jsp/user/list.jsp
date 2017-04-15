@@ -48,6 +48,7 @@
 				<td>
 					<a href="delete/${user.userUuid }" title="${user.userUuid }" class="list_op delete">删除</a>
 					<a href="update/${user.userUuid }" class="list_op">更新</a>
+					<a href="resetpasswd/${user.userUuid }" class="list_op delete">重置密码</a>
 					<a href="<%=request.getContextPath() %>/admin/user/listChannels/${user.userUuid }" class="list_op">管理模块</a>
 				&nbsp;
 				</td>

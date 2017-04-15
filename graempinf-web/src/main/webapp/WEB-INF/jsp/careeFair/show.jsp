@@ -50,16 +50,25 @@
 			<td class="rightTd" >招聘会承办单位:</td>
 			<td class="leftTd" colspan="3">${cf.careerFairUndertaker}</td>
 		</tr>
+		<c:if test="${cf.finshStatus eq 0}">
 		<tr>
 			<td colspan="7" class="centerTd">
 				<c:if test="${isAdmin}">
+				<c:if test="${cf.finshStatus eq 0}">
 				<a href="update/${cf.careerFairUuid }" class="list_op">修改息信</a>
 				</c:if>
+				</c:if>
 				<c:if test="${isTeacher}">
+				
 				<a href="update/${cf.careerFairUuid }" class="list_op">修改信息</a>
+				</c:if>
+				<c:if test="${isAdmin}">
+				<a href="aduit/${cf.careerFairUuid }/yes" class="list_op">同意发布</a>
+				<a href="aduit/${cf.careerFairUuid }/no" class="list_op">不同意发布</a>
 				</c:if>
 			</td>
 		</tr>
+		</c:if>
 	</table>
 </div>
 </body>
