@@ -62,32 +62,28 @@
 		</tr>
 		</thead>
 		<tbody>
-		<c:if test="${ecs.datas.size()>=1}">
-		<c:forEach items="${ecs.datas}" var="ca">
+		<c:if test="${ecs.size()>=1}">
+		<c:forEach items="${ecs}" var="ca">
 			<tr>
-			<td>${ecs.datas.indexOf(ca)+1}&nbsp;</td>
-				<td>${ca[0]}</td>
-				<td>${ca[1]}</td>
-				<td>${ca[3] == null ? '0':ca[3]}</td>
-				<td>${ca[2] == null ? '0':ca[2]}</td>
-				<td>${ca[4] == null ? '0':ca[4]}</td>
-				<td>${ca[6]==null ? '0':ca[6]}%</td>
-				<td>${ca[5]==null ? '0':ca[5]}%</td>
+			<td>${ecs.indexOf(ca)+1}&nbsp;</td>
+				<td>${ca.collegeName}</td>
+				<td>${ca.collegeNum}</td>
+				<td>${ca.atn == null ? '0':ca.atn}</td>
+				<td>${ca.utn == null ? '0':ca.utn}</td>
+				<td>${ca.ttn == null ? '0':ca.ttn}</td>
+				<td>${ca.peratn==null ? '0':ca.peratn}%</td>
+				<td>${ca.perutn ==null ? '0':ca.perutn}%</td>
 				
 			</tr>
 		</c:forEach>
 		</c:if>
-		<c:if test="${ecs.datas.size()<1}">
+		<c:if test="${ecs.size()<1}">
 		<td colspan="11" align="center"><c:out value="暂无就业信息！"></c:out></td>
 		</c:if>
 		<tfoot>
 		<tr>
 			<td colspan="11" style="text-align:right;margin-right:10px;">
-			<jsp:include page="/jsp/pager.jsp">
-				<jsp:param value="${ecs.total }" name="totalRecord"/>
-				<jsp:param value="listCount" name="url"/>
-				<jsp:param value="${ecs.size}" name="size"/>
-			</jsp:include>
+			
 			</td>
 		</tr>
 		</tfoot>
